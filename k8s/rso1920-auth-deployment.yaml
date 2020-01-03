@@ -26,6 +26,8 @@ spec:
             value: http://etcd:2379/health
           - name: KUMULUZEE_DATASOURCES_CONNECTIONURL
             value: jdbc:postgresql://35.228.175.20:5432/auth-database
+          - name: KUMULUZEE_CONFIG_KEYCLOAK
+            value: http://10.0.14.159:8082
           - name: KUMULUZEE_SECURITY_KEYCLOAK_JSON
             value: '{
                     "realm": "customers-realm",
