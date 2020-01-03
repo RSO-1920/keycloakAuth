@@ -13,7 +13,7 @@ spec:
         app: rso1920-auth
     spec:
       containers:
-      - image: rso1920/keycloakauth:latest
+      - image: rso1920/auth:latest
         name: rso1920-auth
         env:
           - name: KUMULUZEE_DISCOVERY_ETCD_HOSTS
