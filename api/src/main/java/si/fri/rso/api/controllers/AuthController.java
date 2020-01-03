@@ -27,7 +27,7 @@ public class AuthController {
     private AuthBean authBean;
 
     @GET
-    @RolesAllowed("uma_authorization")
+    // @RolesAllowed("uma_authorization")
     @Timed(name = "auth_time_all")
     @Counted(name = "auth_counted_all")
     @Metered(name = "auth_metered_all")
@@ -38,7 +38,7 @@ public class AuthController {
     }
 
     @POST
-    @RolesAllowed("uma_authorization")
+    // @RolesAllowed("uma_authorization")
     @Timed(name = "auth_time_post")
     @Counted(name = "auth_counted_post")
     @Metered(name = "auth_metered_post")
