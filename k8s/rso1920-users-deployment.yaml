@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rso1920-auth-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rso1920-auth
+  template:
+    metadata:
+      labels:
+        app: rso1920-auth
+    spec:
+      containers:
+      - image: rso1920/keycloakauth:latest
+        name: rso1920-auth
+        env:
+          - name: KUMULUZEE_DISCOVERY_ETCD_HOSTS
+            value: http://etcd:2379
+          - name: KUMULUZEE_CONFIG_ETCD_HOSTS
+            value: http://etcd:2379
+          - name: KUMULUZEE_SERVER_BASEURL
+            value: http://10.28.0.31:8084
+          - name: KUMULUZEE_HEALTH_CHECKS_ETCDHEALTHCHECK_CONNECTIONURL
+            value: http://etcd:2379/health
+          - name: KUMULUZEE_DATASOURCES_CONNECTIONURL
+            value: jdbc:postgresql://35.228.175.20:5432/auth-database
+          - name: KUMULUZEE_SECURITY_KEYCLOAK_JSON
+            value: '{
+                    "realm": "customers-realm",
+                    "bearer-only": true,
+                    "auth-server-url": "http://34.65.142.129:8082/auth/",
+                    "ssl-required": "external",
+                    "resource": "customers-api"
+                  }'
+        ports:
+        - containerPort: 8084
+          name: server-auth
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: server-auth
+          initialDelaySeconds: 60
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: server-auth
+          initialDelaySeconds: 60
+          periodSeconds: 3
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rso1920-auth
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8084
+    protocol: TCP
+    targetPort: server-auth
+  selector:
+    app: rso1920-auth
