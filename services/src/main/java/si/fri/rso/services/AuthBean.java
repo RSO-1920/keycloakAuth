@@ -74,12 +74,14 @@ public class AuthBean {
 
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
+        System.out.println(fileMetadataUrl.get() + "/channels/v1/channels/channelUsers/" + channelID);
         Request request = new Request.Builder()
-                .url(fileMetadataUrl.get() + "/channels/v1/channels/channelUsers/" + channelID)
+                .url(fileMetadataUrl.get() + "/v1/channels/channelUsers/" + channelID)
                 .method("GET", null)
                 .build();
         Response response = client.newCall(request).execute();
         //System.out.println(response.body().string());
+        System.out.println(response.body());
         JSONObject Jobject = new JSONObject(response.body().string());
         //System.out.println(response.body().string());
         //System.out.println(Jobject.get("data"));
