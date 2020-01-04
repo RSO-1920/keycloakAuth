@@ -46,7 +46,9 @@ public class AuthBean {
     }
 
     public boolean confirmUserCredentials(String authToken, String channelID) {
+        System.out.println("AUTH: " + authToken + " CHANNEL ID: " + channelID);
         String userID = storageBean.GetIdFromAuthToken(authToken);
+        System.out.println("USERID: " + userID);
         if(userID.length() == 0)
             return false;
 
@@ -74,7 +76,7 @@ public class AuthBean {
 
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
-        System.out.println(fileMetadataUrl.get() + "/channels/v1/channels/channelUsers/" + channelID);
+        System.out.println(fileMetadataUrl.get() + "/v1/channels/channelUsers/" + channelID);
         Request request = new Request.Builder()
                 .url(fileMetadataUrl.get() + "/v1/channels/channelUsers/" + channelID)
                 .method("GET", null)

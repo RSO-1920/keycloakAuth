@@ -27,7 +27,9 @@ public class StorageBean {
 
     @Transactional
     public String GetIdFromAuthToken(String authToken){
+        System.out.println("DB: getting id from auth token");
         List<LoginSession> list = em.createNamedQuery("LoginSession.getID").setParameter(1, authToken).getResultList();
+        System.out.println("List size: " + list.size());
         if(list.size() == 1)
             return ((LoginSession) list.get(0)).getId();
         return "";

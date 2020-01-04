@@ -32,6 +32,7 @@ public class AuthController {
     @Counted(name = "auth_counted_all")
     @Metered(name = "auth_metered_all")
     public Response getAccessRights(@HeaderParam("authorization") String authToken, @HeaderParam("channelID") String channelID) {
+        System.out.println("CONFIRM USER CREDENTIALS: " + authToken + "  CHANNEL ID: " + channelID);
         if(authBean.confirmUserCredentials(authToken, channelID))
             return Response.status(Response.Status.OK).entity("True").build();
         return Response.status(Response.Status.OK).entity("False").build();
