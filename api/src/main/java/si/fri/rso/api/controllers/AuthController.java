@@ -44,6 +44,7 @@ public class AuthController {
     @Counted(name = "auth_counted_post")
     @Metered(name = "auth_metered_post")
     public Response successfulLogin(KeycloakUserDTO keycloakUserDTO) {
+        System.out.println("RECEIVED SUCCESSFUL LOGIN");
         authBean.saveLoginSession(keycloakUserDTO);
         return Response.status(Response.Status.OK).entity("Added Login Session to database").build();
     }

@@ -16,6 +16,7 @@ public class StorageBean {
 
     @Transactional
     public void SaveLogin(LoginSession l){
+        System.out.println("Trying to save: ID:" + l.getId() + " TOKEN: " + l.getAuthToken());
         LoginSession lOld = em.find(LoginSession.class, l.getId());
         if(lOld != null){
             em.merge(l);
@@ -32,6 +33,10 @@ public class StorageBean {
         System.out.println("List size: " + list.size());
         if(list.size() == 1)
             return ((LoginSession) list.get(0)).getId();
+        if(list.size() > 1)
+            System.out.println("ERROR: Multiple ID's for auth token");
+        if(list.size() == 0)
+            System.out.println("ERROR: ID list is empty for this AUTH token");
         return "";
     }
 

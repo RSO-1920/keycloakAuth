@@ -24,8 +24,6 @@ spec:
             value: http://10.28.0.31:8084
           - name: KUMULUZEE_HEALTH_CHECKS_ETCDHEALTHCHECK_CONNECTIONURL
             value: http://etcd:2379/health
-          - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-            value: jdbc:postgresql://35.228.175.20:5432/auth-database
         ports:
         - containerPort: 8084
           name: server-auth
